@@ -1,0 +1,9 @@
+{
+  "name" : "jdtd",
+  "description" : "JSON Data Type Definition",
+  "url" : "https://github.com/Evgenus/jdtd",
+  "keywords" : ["JSON", "DTD", "javascript", "browser"],
+  "author" : "Eugene Chernyshov <chernyshov.eugene@gmail.com>",
+  "contributors" : [],
+  "version" : "0.1",
+}
