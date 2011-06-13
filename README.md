@@ -7,7 +7,7 @@ About
 -----
 
 Generates HTML form unsing DTD like JSON data structure descriptions.
-Forms could contains compound elements like: lists, collections, variative content.
+Forms could contain compound elements like: lists, collections, variative content.
 
 
 License
@@ -22,8 +22,8 @@ Why?
 
 It is usefull when:
 
- -  you need to manage a lot of data and don't have much time to make pretty editor for each custom part;
- - you need to make prototype and don't conceirn of details;
+ - you need to manage a lot of data and don't have much time to make pretty editor for each custom part;
+ - you need to make prototype and don't concern of details;
  - the statement of your work need to be just working (like administrative page of site);
  - you use a lot (or only) `JSON` (`YAML` fits as well) data. When you're using `CouchDB` or `MongoDB` you can even store DTD in some collection of your database.
 
@@ -54,7 +54,7 @@ Here is simple addressbook example below.
         ]
     };
 
-The portion of the single data could be handled by editor is represented by `FILE` rule.
+The data could be handled by editor is represented by `FILE` rule.
 
 **2. Create editor instance.**
 
@@ -109,14 +109,17 @@ Let this place have id `container`.
 
 Now everything is ready to use. You can begin to edit your data.
 
-**6. Storing.** When you feed accomplished about editing it is time to retrieve data from editors.
+**6. Storing.** When you feel accomplished about editing it is time to retrieve data from editors.
 Fortunately, that is simpliest operation.
 
     editor.gather($('#container'));
 
 It returns data in original format (not marked, ready to use, pure data).
 
-Styling
--------
+Coming soon.
+------------
 
-`jdtd` editor has several methods to customize its appearance. Will tell about it soon.
+ - **Styling.** `jdtd` editor has several methods to customize its appearance.
+ - **More tests.** That is hard to make full coverage. Maybe I'll only manage with some real world examples.
+ - **Site with examples.** Since I don't need server side, GitHub pages is good for small page with few examples and playground.
+ - **Descriptions.** Will show how to make not ugly names for fields in editor.
