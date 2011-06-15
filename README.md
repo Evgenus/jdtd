@@ -30,7 +30,9 @@ It is usefull when:
 Getting started
 ---------------
 
-**1. Make DTD.** There is no special format or language for DTD structure. It is `JSON` with special data.
+**1. Make DTD.** 
+There is no special format or language for DTD structure. 
+It is `JSON` with special data.
 Here is simple addressbook example below.
 
     var AddressBookDTD = {
@@ -63,7 +65,8 @@ The data could be handled by editor is represented by `FILE` rule.
 Actually there are two types of editors in `jdtd`: `StandAloneDTDEditor` and `MarkedDTDEditor`.
 `MarkedDTDEditor` is used together with server side part so we'll discuss it later.
 
-**3. Obtain initial data.** For our address book it should be something like that.
+**3. Obtain initial data.** 
+For our address book it should be something like that.
 
     var data = {        
         'contacts': [
@@ -96,20 +99,27 @@ Actually there are two types of editors in `jdtd`: `StandAloneDTDEditor` and `Ma
             ]
         };
 
-**4. Mark the data.** Here Editor will search all combinations of rules to find exact for all data parts to some rule.
+**4. Mark the data.** 
+Here Editor will search all combinations of rules to find exact for all data parts to some rule.
 
     var marked_data = editor.markup(data);
 
-This operation returns something like parsing tree. It is very handy for futher creating editor elements when there is no time to guess but to create.
+This operation returns something like parsing tree. 
+It is very handy for futher creating editor elements when there is no time to guess but to create.
 
-**5. Create editor elements.** Now you need some place on page where editor is about to be created. 
+**5. Create editor elements.** 
+Now you need some place on page where editor is about to be created. 
 Let this place have id `container`.
 
     editor.create($('#container'), marked_data);
 
-Now everything is ready to use. You can begin to edit your data.
+Now everything is ready to use. You can begin to edit your data. 
+**However** it loooks very bad, like huge ugly mess of fields. 
+But this is just "Hello world" example. 
+After styling and adding additional information into DTD it will be much better.
 
-**6. Storing.** When you feel accomplished about editing it is time to retrieve data from editors.
+**6. Storing.** 
+When you feel accomplished about editing it is time to retrieve data from editors.
 Fortunately, that is simpliest operation.
 
     editor.gather($('#container'));

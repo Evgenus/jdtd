@@ -255,7 +255,8 @@ var CheckMany = Check.$extend({
         element.checker = checker;
         element.context = context;
 
-        return container;
+        return container
+            .addClass(context.styles.check_many);
     },
 
     gather:  function(context, container) {
@@ -448,7 +449,7 @@ var DynamicPlainItem = RuleCollectItem.$extend({
             .attr('data-item-name', this.id);
         var key_container = $('<div>')
             .attr('data-item-part', 'key');
-        key_container.append(this.name);
+        //key_container.append(this.name);
         key_container.append(
                 this.key.create(context, data_key)
                     .attr('data-item-key', this.id)
@@ -834,6 +835,11 @@ var BaseDTDEditor = Class.$extend({
         'check_value'               : 'check check-value',
         'check_type'                : 'check check-type',
         'check_rule'                : 'check check-rule',
+        'check_many'                : 'check check_many',
+
+        'check_many_item'           : 'many-item',
+        'check_many_item_holder'    : 'many-item-holder',
+        'check_many_remove_btn_holder': 'many-remove-btn-holder',
 
         'static_tabular_item'       : 'item item-static-tabular',
         'static_tabular_item_key'   : 'item-key item-static-tabular-key',
@@ -1343,7 +1349,8 @@ function AddManyItem(checker, context, data) {
                 .append(
                     checker.create(context, data)
                         .attr('data-many-item', checker.id)
-                ),
+                    )
+                .addClass(context.styles.check_many_item_holder),
             $('<td>')
                 .append(
                     $('<a>')
@@ -1352,8 +1359,10 @@ function AddManyItem(checker, context, data) {
                         .click(function() {
                             $(this).parents('tr').first().remove();
                         })
-                )
-        );
+                    )
+                .addClass(context.styles.check_many_remove_btn_holder)
+            )
+        .addClass(context.styles.check_many_item);
 }
 
 function AddManyItemEvent() {

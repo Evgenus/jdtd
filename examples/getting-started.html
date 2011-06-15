@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+    <script type="text/javascript" src="https://github.com/mitsuhiko/classy/raw/master/classy.js"></script>
+    <script type="text/javascript" src="../dtd.js"></script>
+    <script>
+        $(function () {
+            //Defining DTD
+            var AddressBookDTD = {
+                'FILE': {
+                    'contacts': 'PERSON*'
+                    },
+                'PERSON': {
+                    'name': 'str',
+                    'id': 'int',
+                    'email': 'str',
+                    'phone': 'PHONE*'   
+                    },
+                'PHONE': {
+                    'number': 'str',
+                    'type': 'TYPE'
+                    },
+                'TYPE': [
+                    'MOBILE',
+                    'HOME',
+                    'WORK'
+                    ]
+                };
+            // Creating editor instance
+            editor = StandAloneDTDEditor(AddressBookDTD);
+            // Initial data
+            var data = {
+                'contacts': [
+                    {
+                        'name': 'Bob',
+                        'id': 1,
+                        'email': 'bob.bobovan@gmail.com',
+                        'phone': [
+                            {
+                                'number': '555-47-72',
+                                'type': 'WORK'
+                            }
+                        ]
+                    },
+                    {
+                        'name': 'James',
+                        'id': 2,
+                        'email': 'jamie@gmail.com',
+                        'phone': [
+                                {
+                                    'number': '555-11-54',
+                                    'type': 'WORK'
+                                },
+                                {
+                                    'number': '555-24-33',
+                                    'type': 'HOME'
+                                }
+                            ]
+                    }
+                    ]
+            };
+            // Marking initial data
+            var marked_data = editor.markup(data);
+            // Searching place for editor form
+            var container = $('#container');
+            // Creating form
+            editor.create(container, marked_data);
+        });
+    </script>
+</head>
+<body>
+    <div id="container"></div>
+</body>
+</html>
