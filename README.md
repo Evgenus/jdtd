@@ -126,6 +126,14 @@ Fortunately, that is simpliest operation.
 
 It returns data in original format (not marked, ready to use, pure data).
 
+Dependencies
+------------
+
+ - [jQuery](http://jquery.com/)
+ - [QUnit](http://docs.jquery.com/Qunit) for tests
+ - [Classy](http://classy.pocoo.org/) for making sources objects oriented
+ - [lesscss](http://lesscss.org/) for advanced styling
+
 Coming soon.
 ------------
 
