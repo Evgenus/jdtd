@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<!-- Better view for first example using required fields -->
+<html>
+<head>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+    <script type="text/javascript" src="https://raw.github.com/mitsuhiko/classy/master/classy.js"></script>
+    <script type="text/javascript" src="https://raw.github.com/douglascrockford/JSON-js/master/json2.js"></script>
+    <script type="text/javascript" src="https://raw.github.com/coreyti/showdown/master/src/showdown.js"></script>
+    <script type="text/javascript" src="../dtd.js"></script>
+    <script type="text/javascript" src="examples.js"></script>
+    <script>
+        $(function () {
+            //Defining DTD
+            var AddressBookDTD = {
+                'FILE': {
+                    'contacts!': 'PERSON*'
+                },
+                'PERSON': {
+                    'name!': 'str',
+                    'id!': 'int',
+                    'email!': 'str',
+                    'phone!': 'PHONE*'
+                },
+                'PHONE': {
+                    'number!': 'str',
+                    'type!': 'TYPE'
+                },
+                'TYPE': [
+                    'MOBILE',
+                    'HOME',
+                    'WORK'
+                    ],
+                'FILE.contacts!': {
+                    'key': {
+                        'label': 'Your contacts'
+                    },
+                    'value': {
+                        'add_button_text': 'Add contact',
+                        'class': 'contacts-list'
+                    }
+                },
+                'PERSON.name!': {
+                    'key': {
+                        'label': 'Name'
+                    }
+                },
+                'PERSON.id!': {
+                    'key': {
+                        'label': 'ID'
+                    }
+                },
+                'PERSON.email!': {
+                    'key': {
+                        'label': 'E-Mail'
+                    }
+                },
+                'PERSON.phone!': {
+                    'key': {
+                        'label': 'Phone numbers'
+                    },
+                    'value': {
+                        'add_button_text': 'Add number',
+                        'class': 'phones-list'
+                    }
+                },
+                'PHONE.number!': {
+                    'key': {
+                        'label': 'Phone number'
+                    }
+                },
+                'PHONE.type!': {
+                    'key': {
+                        'label': 'Phone type'
+                    }
+                }
+            };
+            // Creating editor instance
+            editor = StandAloneDTDEditor(AddressBookDTD);
+            // Initial data
+            var data = {
+                'contacts': [
+                    {
+                        'name': 'Bob',
+                        'id': 1,
+                        'email': 'bob.bobovan@gmail.com',
+                        'phone': [
+                            {
+                                'number': '555-47-72',
+                                'type': 'WORK'
+                            }
+                        ]
+                    },
+                    {
+                        'name': 'James',
+                        'id': 2,
+                        'email': 'jamie@gmail.com',
+                        'phone': [
+                                {
+                                    'number': '555-11-54',
+                                    'type': 'WORK'
+                                },
+                                {
+                                    'number': '555-24-33',
+                                    'type': 'HOME'
+                                }
+                            ]
+                    }
+                ]
+            };
+            // Marking initial data
+            var marked_data = editor.markup(data);
+            // Searching place for editor form
+            var container = $('#container');
+            // Creating form
+            editor.create(container, marked_data);
+
+            window.DTD = AddressBookDTD;
+            window.data = data;
+        });
+    </script>
+    <style id="styling">
+    .item-static-plain-value 
+    {
+        margin-left: 40px;
+    }
+    .many-remove-btn-holder 
+    {
+        vertical-align: top;
+    }
+    .phones-list 
+    {
+        border: 1px solid gray;
+        padding: 4px;
+    }
+    .contacts-list 
+    {
+        border: 2px solid blue;
+        padding: 4px;
+        border-radius: 8px;
+    }
+    </style>
+</head>
+<body>
+
+    <pre class="markdown">
+
+Third "Hello world" example
+----------------------------
+
+As you can see that looks like a good form.
+All because some styling was added.
+First important change is fields names.
+To add customization for that you need to create description rule.
+Description rule is a dict with dict values. 
+That is its difference from collection rules.
+
+    'FILE.contacts!': {
+        'key': {
+            'label': 'Your contacts'
+        },
+        'value': {
+            'add_button_text': 'Add contact',
+            'class': 'contacts-list'
+        }
+    },
+
+Name of rule should be dot separated rule name to describe and key field name (or item name in case of variant rule).
+Inside could be one of `key`, `value` or `item` indicating which part we will customize.
+Inside part description you can use next options:
+
+ - `label` option in `key` part is our new pretty names for fields.
+ - `add_button_text` in `value` part is used by lists to customize text of button/link for adding new items.
+ - `class` option could be used in any part. It adds class to corresponding element.
+
+In this example two classes were added to define borders around lists.
+Also two internal jdtd classes were customized to set position of cross (link for removing item from list) and to add indentation.
+You can see list of all internal jdtd css classes using button.
+
+    </pre>
+
+    <button id="show_dtd">Show DTD</button>
+    <button id="show_data">Show initial data</button>
+    <button id="gather">Gather edited data</button>
+    <button id="styles">Show styling</button>
+    <button id="internal">Show all internal classes</button>
+    <div id="container"></div>
+</body>
+</html>

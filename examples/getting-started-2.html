@@ -1,25 +1,29 @@
 <!DOCTYPE html>
+<!-- Better view for first example using required fields -->
 <html>
 <head>
     <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
-    <script type="text/javascript" src="https://github.com/mitsuhiko/classy/raw/master/classy.js"></script>
+    <script type="text/javascript" src="https://raw.github.com/mitsuhiko/classy/master/classy.js"></script>
+    <script type="text/javascript" src="https://raw.github.com/douglascrockford/JSON-js/master/json2.js"></script>
+    <script type="text/javascript" src="https://raw.github.com/coreyti/showdown/master/src/showdown.js"></script>
     <script type="text/javascript" src="../dtd.js"></script>
+    <script type="text/javascript" src="examples.js"></script>
     <script>
         $(function () {
             //Defining DTD
             var AddressBookDTD = {
                 'FILE': {
-                    'contacts': 'PERSON*'
+                    'contacts!': 'PERSON*'
                     },
                 'PERSON': {
-                    'name': 'str',
-                    'id': 'int',
-                    'email': 'str',
-                    'phone': 'PHONE*'   
+                    'name!': 'str',
+                    'id!': 'int',
+                    'email!': 'str',
+                    'phone!': 'PHONE*'   
                     },
                 'PHONE': {
-                    'number': 'str',
-                    'type': 'TYPE'
+                    'number!': 'str',
+                    'type!': 'TYPE'
                     },
                 'TYPE': [
                     'MOBILE',
@@ -66,10 +70,27 @@
             var container = $('#container');
             // Creating form
             editor.create(container, marked_data);
+
+            window.DTD = AddressBookDTD;
+            window.data = data;
         });
     </script>
 </head>
 <body>
+
+    <pre class="markdown">
+
+Second "Hello world" example
+----------------------------
+
+Same as first but fields are set to be required, so no selectors created for them. 
+Should look much better and simplier.
+
+    </pre>
+
+    <button id="show_dtd">Show DTD</button>
+    <button id="show_data">Show initial data</button>
+    <button id="gather">Gather edited data</button>
     <div id="container"></div>
 </body>
 </html>

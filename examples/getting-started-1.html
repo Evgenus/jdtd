@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<!-- First 'Hello World' example -->
+<html>
+<head>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+    <script type="text/javascript" src="https://raw.github.com/mitsuhiko/classy/master/classy.js"></script>
+    <script type="text/javascript" src="https://raw.github.com/douglascrockford/JSON-js/master/json2.js"></script>
+    <script type="text/javascript" src="https://raw.github.com/coreyti/showdown/master/src/showdown.js"></script>
+    <script type="text/javascript" src="../dtd.js"></script>
+    <script type="text/javascript" src="examples.js"></script>
+    <script>
+        $(function () {
+            //Defining DTD
+            var AddressBookDTD = {
+                'FILE': {
+                    'contacts': 'PERSON*'
+                },
+                'PERSON': {
+                    'name': 'str',
+                    'id': 'int',
+                    'email': 'str',
+                    'phone': 'PHONE*'
+                },
+                'PHONE': {
+                    'number': 'str',
+                    'type': 'TYPE'
+                },
+                'TYPE': [
+                    'MOBILE',
+                    'HOME',
+                    'WORK'
+                    ]
+            };
+            // Creating editor instance
+            editor = StandAloneDTDEditor(AddressBookDTD);
+            // Initial data
+            var data = {
+                'contacts': [
+                    {
+                        'name': 'Bob',
+                        'id': 1,
+                        'email': 'bob.bobovan@gmail.com',
+                        'phone': [
+                            {
+                                'number': '555-47-72',
+                                'type': 'WORK'
+                            }
+                        ]
+                    },
+                    {
+                        'name': 'James',
+                        'id': 2,
+                        'email': 'jamie@gmail.com',
+                        'phone': [
+                                {
+                                    'number': '555-11-54',
+                                    'type': 'WORK'
+                                },
+                                {
+                                    'number': '555-24-33',
+                                    'type': 'HOME'
+                                }
+                            ]
+                    }
+                    ]
+            };
+            // Marking initial data
+            var marked_data = editor.markup(data);
+            // Searching place for editor form
+            var container = $('#container');
+            // Creating form
+            editor.create(container, marked_data);
+
+            window.DTD = AddressBookDTD;
+            window.data = data;
+        });
+    </script>
+</head>
+<body>
+
+    <pre class="markdown">
+
+First "Hello world" example
+---------------------------
+
+Here is first ugly example without any customization. 
+All fields are set to be optional and abstract.
+
+Let us look DTD description of this example.
+There are 4 rules: `FILE`, `PERSON`, `PHONE`, and `TYPE`.
+
+`FILE` is the rule of whole data you can edit at single time. 
+As you can see it is a dictionary. 
+So it means that whole data will be a dictionary (object) with single possible key `contacts` and list value of items described by `PERSON` rule.
+Asterisk at the end of name points to treat value as list. 
+
+`PERSON` rule is bigger. 
+As previous it is dictionary.
+But now it has 4 possible keys.
+That is the first time form need to ask values.
+As you could probably mentioned before we used strings to describe keys and values.
+In case of keys this string means just sring keys in data, but in case of values that build data structure.
+The magick of this is simple - 5 statements:
+
+ - if string ends with asterisk, it describes a list;
+ - if string ends with exclamation mark, it describes required key;
+ - if string is one of the atomic type name, then it describes atomic value;
+ - if string is name of rule in DTD, then it describes structure defined by that rule;
+ - if string is some other name, this name will be user as string constant.
+
+
+`PHONE` is just the same.
+
+`TYPE` rule is a list.
+That is variant rule. 
+It describes value which should match at by one of rules in list.
+Here it should be one of constants `MOBILE`, `HOME` or `WORK`.
+    </pre>
+
+    <button id="show_dtd">Show DTD</button>
+    <button id="show_data">Show initial data</button>
+    <button id="gather">Gather edited data</button>
+    <div id="container"></div>
+</body>
+</html>

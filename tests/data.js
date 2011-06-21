@@ -1,3 +1,41 @@
+var simple_DTD_1 = {
+    'FILE': {
+        'pack': 'VARIANT*'
+    },
+    'VARIANT': [
+        'RULE1',
+        'RULE2'
+    ],
+    'RULE1': {
+        'value': 'int'
+    },
+    'RULE2': {
+        'value': 'str'
+    }
+}
+
+var simple_data_1 = {
+    'pack': [
+        { 'value': 1 },
+        { 'value': 2 },
+    ]
+}
+
+var simple_data_2 = {
+    'pack': [
+        { 'value': 'A' },
+        { 'value': 'B' },
+    ]
+}
+
+var simple_data_3 = {
+    'pack': [
+        { 'value': 'A' },
+        { 'value':  1  },
+        { 'value': 'B' },
+        { 'value':  2  },
+    ]
+}
 var complex_DTD_1 = {
     "PAIR1": {
         "value!": "int",

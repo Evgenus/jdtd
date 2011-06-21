@@ -22,6 +22,16 @@ test_gather = function (data) {
     deepEqual(data, result, "data gathered incorrectly");
 }
 
+// _________________________________________________________________________ //
+
+module("Simple tests", { setup: setup, teardown: teardown });
+
+test("Variants with nested collections", function () {
+    make_editor.call(this, simple_DTD_1);
+    test_gather.call(this, simple_data_1);
+    test_gather.call(this, simple_data_2);
+    test_gather.call(this, simple_data_3);
+});
 
 
 // _________________________________________________________________________ //

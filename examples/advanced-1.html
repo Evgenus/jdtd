@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<!-- Better view for first example using required fields -->
+<html>
+<head>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+    <script type="text/javascript" src="https://raw.github.com/mitsuhiko/classy/master/classy.js"></script>
+    <script type="text/javascript" src="https://raw.github.com/douglascrockford/JSON-js/master/json2.js"></script>
+    <script type="text/javascript" src="https://raw.github.com/coreyti/showdown/master/src/showdown.js"></script>
+    <script type="text/javascript" src="../dtd.js"></script>
+    <script type="text/javascript" src="examples.js"></script>
+    <script>
+        $(function () {
+            //Defining DTD
+            var DTD = {
+                'FILE': {
+                    'bool_field!': 'bool',
+                    'int_field!': 'int',
+                    'float_field!': 'float',
+                    'str_field!': 'str'
+                },
+                'FILE.bool_field!': {
+                    'key': {
+                        'label': 'Boolean'
+                    }
+                },
+                'FILE.int_field!': {
+                    'key': {
+                        'label': 'Integer number'
+                    }
+                },
+                'FILE.float_field!': {
+                    'key': {
+                        'label': 'Floating point number'
+                    }
+                },
+                'FILE.str_field!': {
+                    'key': {
+                        'label': 'String'
+                    }
+                },
+            };
+            // Creating editor instance
+            editor = StandAloneDTDEditor(DTD);
+            // Initial data
+            var data = {
+            };
+            // Marking initial data
+            var marked_data = editor.markup(data);
+            // Searching place for editor form
+            var container = $('#container');
+            // Creating form
+            editor.create(container, marked_data);
+
+            window.DTD = DTD;
+            window.data = data;
+        });
+    </script>
+    <style id="styling">
+        .invalid-input 
+        {
+            background-color: Red;
+        }
+    </style>
+</head>
+<body>
+
+    <pre class="markdown">
+Advanced features: Validation
+-----------------------------
+
+With `jdtd` editor you can't produce data with invalid structure. 
+However in places where you will enter abstract textual data, you are able to make a mistake.
+For such places (input fields) exists validation notification.
+When you trying to enter invalid data for field, it receives class `invalid-input`.
+You can provide style for it as was made in this example.
+
+Also at this example you can experiment with atomic fields.
+Note that empty string is not present in gathered data.
+    </pre>
+
+    <button id="show_dtd">Show DTD</button>
+    <button id="gather">Gather edited data</button>
+    <button id="styles">Show styling</button>
+    <div id="container"></div>
+</body>
+</html>
