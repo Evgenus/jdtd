@@ -26,13 +26,41 @@ test_gather = function (data) {
 
 module("Simple tests", { setup: setup, teardown: teardown });
 
-test("Variants with nested collections", function () {
-    make_editor.call(this, simple_DTD_1);
-    test_gather.call(this, simple_data_1);
-    test_gather.call(this, simple_data_2);
-    test_gather.call(this, simple_data_3);
+test("Variants with nested collections #1", function () {
+    make_editor.call(this, simple_DTD_variant_1);
+    test_gather.call(this, simple_data_variant_1);
+    test_gather.call(this, simple_data_variant_2);
+    test_gather.call(this, simple_data_variant_3);
 });
 
+test("Variants with nested collections #2", function () {
+    make_editor.call(this, simple_DTD_variant_2);
+    test_gather.call(this, simple_data_variant_1);
+    test_gather.call(this, simple_data_variant_2);
+    raises(function () {
+        test_gather.call(this, simple_data_variant_3);
+    });
+});
+
+test("Variants with nested variants", function () {
+    make_editor.call(this, simple_DTD_variant_3);
+    test_gather.call(this, simple_data_variant_4);
+});
+
+test("Collection with variant keys", function () {
+    make_editor.call(this, simple_DTD_collect_1);
+    test_gather.call(this, simple_data_collect_1);
+});
+
+test("Collection with variant values", function () {
+    make_editor.call(this, simple_DTD_collect_2);
+    test_gather.call(this, simple_data_collect_2);
+});
+
+test("Abstract recursive tree", function () {
+    make_editor.call(this, simple_DTD_tree_1);
+    test_gather.call(this, simple_data_tree_1);
+});
 
 // _________________________________________________________________________ //
 

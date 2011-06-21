@@ -7,16 +7,8 @@
 
 // TODO: I need tests for this
 // TODO:    Tests for description (names vs ids)
-// TODO:    Variants with nested collections
-// TODO:    Variants with nested varaints
-// TODO:    Collections with variants as keys
-// TODO:    Collections with variants as values
-// TODO:    Collections with static keys
-// TODO:    Collections with dynamic keys
 // TODO:    Description of keys in items with dynamic and static keys
 // TODO:    Description of values in items with dynamic and static keys
-
-// TODO: Descriptions for stand-alone mode
 
 
 var Check = Class.$extend({

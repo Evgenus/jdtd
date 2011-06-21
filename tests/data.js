@@ -1,4 +1,4 @@
-var simple_DTD_1 = {
+var simple_DTD_variant_1 = {
     'FILE': {
         'pack': 'VARIANT*'
     },
@@ -14,21 +14,21 @@ var simple_DTD_1 = {
     }
 }
 
-var simple_data_1 = {
+var simple_data_variant_1 = {
     'pack': [
         { 'value': 1 },
         { 'value': 2 },
     ]
 }
 
-var simple_data_2 = {
+var simple_data_variant_2 = {
     'pack': [
         { 'value': 'A' },
         { 'value': 'B' },
     ]
 }
 
-var simple_data_3 = {
+var simple_data_variant_3 = {
     'pack': [
         { 'value': 'A' },
         { 'value':  1  },
@@ -36,6 +36,149 @@ var simple_data_3 = {
         { 'value':  2  },
     ]
 }
+
+var simple_DTD_variant_2 = {
+    'FILE': {
+        'pack': 'VARIANT'
+    },
+    'VARIANT': [
+        'RULE1*',
+        'RULE2*'
+    ],
+    'RULE1': {
+        'value': 'int'
+    },
+    'RULE2': {
+        'value': 'str'
+    }
+}
+
+var simple_DTD_variant_3 = {
+    'FILE': {
+        'pack': 'VARIANT*'
+    },
+    'VARIANT': [
+        'RULE1',
+        'RULE2'
+    ],
+    'RULE1': [
+        'int',
+        'str',
+    ],
+    'RULE2': [
+        'bool',
+        'float',
+    ],
+}
+
+var simple_data_variant_4 = {
+    'pack': [
+        1,
+        'A',
+        true,
+        2,
+        false,
+        5.3,
+        'Q',
+        1.1,
+        0
+    ]
+}
+
+var simple_DTD_collect_1 = {
+    'FILE': {
+        'RULE1': 'int'
+    },
+    'RULE1': [
+        'int',
+        'str',
+    ],
+}
+
+var simple_data_collect_1 = {
+    'A': 1,
+     2 : 2,
+     1 : 3,
+    'D': 4
+}
+
+var simple_DTD_collect_2 = {
+    'FILE': {
+        'str': 'RULE1'
+    },
+    'RULE1': [
+        'int',
+        'RULE2',
+    ],
+    'RULE2': {
+        'value': 'RULE1'
+    }
+}
+
+var simple_data_collect_2 = {
+    'A': 1,
+    'B': 2,
+    'C': {
+        'value': 3
+    },
+    'D': {
+        'value': {
+            'value': 4
+        }
+    }
+}
+
+var simple_DTD_tree_1 = {
+    'FILE': [
+        'NODE'
+    ],
+    'NODE': {
+        'attributes': 'ATTRIBUTES',
+        'children': 'CHILDREN'
+    },
+    'ATTRIBUTES': {
+        'str': 'VALUE'
+    },
+    'VALUE': [
+        'str',
+        'int',
+        'float',
+        'bool'
+    ],
+    'CHILDREN': {
+        'str': 'NODE'
+    }
+}
+
+var simple_data_tree_1 = {
+    'attributes': {
+        'id': 0,
+        'type': 'Window',
+        'visible': true,
+        'aspect': 4/3,
+        'name': 'Dialog'
+    },
+    'children': {
+        'btn_ok': {
+            'attributes': {
+                'id': 1,
+                'type': 'Button',
+                'visible': true,
+                'text': 'Ok'
+            }
+        },
+        'btn_cancel': {
+            'attributes': {
+                'id': 2,
+                'type': 'Button',
+                'visible': true,
+                'text': 'Cancel'
+            }
+        }
+    }
+}
+
+
 var complex_DTD_1 = {
     "PAIR1": {
         "value!": "int",
