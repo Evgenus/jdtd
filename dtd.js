@@ -11,6 +11,88 @@
 // TODO:    Description of values in items with dynamic and static keys
 
 
+function NotMatchedByValue(expected, provided) {
+    this.message = 'expected = '+expected+', '+'provided = '+provided+'.';
+    this.name = 'NotMatchedByValue';
+    this.expected = expected;
+    this.provided = provided;
+}
+
+NotMatchedByValue.prototype = Error.prototype;
+
+
+
+function NotMatchedByType(type, value) {
+    this.message = 'type = ' + type + ', ' + 'value = ' + value + '.';
+    this.name = 'NotMatchedByType';
+    this.type = type;
+    this.value = value;
+}
+
+NotMatchedByType.prototype = Error.prototype;
+
+
+
+function NotMatchedByMany(value) {
+    this.message = 'Bad value type ' + value.constructor + '.';
+    this.name = 'NotMatchedByMany';
+    this.value = value;
+}
+
+NotMatchedByMany.prototype = TypeError.prototype;
+
+
+
+function NotMatchedByCollectRules(rule) {
+    this.message = 'Rule: ' + rule + '.';
+    this.name = 'NotMatchedByCollectRules';
+    this.rule = rule;
+}
+
+NotMatchedByCollectRules.prototype = Error.prototype;
+
+
+
+function NotMatchedInCollect(value) {
+    this.message = 'Bad value type ' + values.constructor + '.';
+    this.name = 'NotMatchedInCollect';
+    this.value = value;
+}
+
+NotMatchedInCollect.prototype = TypeError.prototype;
+
+
+
+function NotMatchedInVariant(rule) {
+    this.message = 'Rule: ' + rule + '.';
+    this.name = 'NotMatchedInVariant';
+    this.rule = rule;
+}
+
+NotMatchedInVariant.prototype = Error.prototype;
+
+
+
+function InvalidRuleDeclaration(rule) {
+    this.message = 'Rule: ' + rule + '.';
+    this.name = 'InvalidRuleDeclaration';
+    this.rule = rule;
+}
+
+InvalidRuleDeclaration.prototype = SyntaxError.prototype;
+
+
+
+function InvalidDescription(description) {
+    this.message = 'Description: ' + description + '.';
+    this.name = 'InvalidDescription';
+    this.description = description;
+}
+
+InvalidDescription.prototype = SyntaxError.prototype;
+
+
+
 var Check = Class.$extend({
 });
 
@@ -42,7 +124,7 @@ var CheckValue = Check.$extend({
 
     markup: function (context, value) {
         if (value != this.value) {
-            throw 'NotMatchedByValue ' + this.value + '. value = ' + value;
+            throw new NotMatchedByValue(this.value, value);
         }
         return {
             type: 'CheckValue',
@@ -198,7 +280,7 @@ var CheckType = Check.$extend({
 
     markup: function (context, value) {
         if (!this.provider.check(value)) {
-            throw 'NotMatchedByType ' + this.type + '. value = ' + value;
+            throw new NotMatchedByType(this.type, value);
         }
         return {
             type: 'CheckType',
@@ -238,7 +320,7 @@ var CheckMany = Check.$extend({
             .addClass(context.styles.dynamic_button_add);
 
         add_btn.text(
-            description.add_button_text 
+            description.add_button_text
                 ? description.add_button_text
                 : context.add_button_text
             );
@@ -276,7 +358,7 @@ var CheckMany = Check.$extend({
 
     markup: function (context, values) {
         if (!isArray(values)) {
-            throw 'NotMatchedByMany. type = ' + values.constructor;
+            throw new NotMatchedByMany(values);
         }
         var items = [];
         var checker = context.get_checker(this.item);
@@ -655,11 +737,11 @@ var RuleCollect = Rule.$extend({
             }
             return value;
         };
-        throw 'NotMatchedByCollectRules';
+        throw new NotMatchedByCollectRules(this);
     },
     markup: function (context, collection) {
         if (!isObject(collection)) {
-            throw 'NotMatchedInCollect. value = ' + value;
+            throw new NotMatchedInCollect(collection);
         }
         var items = [];
         var self = this;
@@ -778,7 +860,7 @@ var RuleVariant = Rule.$extend({
             if (item_data && selected in this.dynamic) {
                 var selected_item = this.dynamic[selected];
                 holder.append(
-                    selected_item.variant.create(context, item_data, 
+                    selected_item.variant.create(context, item_data,
                             selected_item.description)
                         .attr('data-variant-item', this.name)
                 );
@@ -820,7 +902,7 @@ var RuleVariant = Rule.$extend({
             }
             return value;
         };
-        throw 'NotMatchedInVariant';
+        throw new NotMatchedInVariant(this);
     },
     markup: function (context, value) {
         var self = this;
@@ -965,7 +1047,7 @@ var StandAloneDTDEditor = BaseDTDEditor.$extend({
         var self = this;
         iteritems(dtd_data, function (name, value) {
             if (!self.match_declaration(name, value)) {
-                throw 'Invalid rule declaration. name = ' + name;
+                throw new InvalidRuleDeclaration(name);
             }
         });
         this.root = this.names['FILE'];
@@ -1083,7 +1165,7 @@ var StandAloneDTDEditor = BaseDTDEditor.$extend({
             if (all_of_values(value, isObject)) {
                 var path = name.split('.');
                 if (path.length != 2) {
-                    throw 'Invalid description. name = ' + name;
+                    throw new InvalidDescription(name);
                 }
                 return true;
             }

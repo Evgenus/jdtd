@@ -50,13 +50,13 @@ $(function () {
         for (var name in styles) {
             var value = styles[name].split(' ');
             for(var num in value) {
-                var class = value[num];
-                set[class] = 1;
+                var cls = value[num];
+                set[cls] = 1;
             }
         }
         var classes = [];
-        for(var class in set) {
-            classes.push(class);
+        for(var cls in set) {
+            classes.push(cls);
         }
         alert(
             classes.sort().join('\n')

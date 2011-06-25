@@ -24,6 +24,143 @@ test_gather = function (data) {
 
 // _________________________________________________________________________ //
 
+module("Functionality tests");
+
+test("Exceptions: NotMatchedByValue", function () {
+    this.editor = StandAloneDTDEditor({});
+    var checker = CheckValue(this.editor, { id: 'fake', value: 0 });
+    checker.markup(this.editor, 0);
+    try {
+        checker.markup(this.editor, 1);
+        ok(false, 'exception was not raised');
+    } catch (error) {
+        ok(error instanceof NotMatchedByValue,
+            'invalid exception type ' + error.name);
+    }
+    try {
+        checker.markup(this.editor, 'value');
+        ok(false, 'exception was not raised');
+    } catch (error) {
+        ok(error instanceof NotMatchedByValue,
+            'invalid exception type ' + error.name);
+    }
+    try {
+        checker.markup(this.editor, true);
+        ok(false, 'exception was not raised');
+    } catch (error) {
+        ok(error instanceof NotMatchedByValue,
+            'invalid exception type ' + error.name);
+    }
+    try {
+        checker.markup(this.editor);
+        ok(false, 'exception was not raised');
+    } catch (error) {
+        ok(error instanceof NotMatchedByValue,
+            'invalid exception type ' + error.name);
+    }
+    try {
+        checker.markup(this.editor, 1.0);
+        ok(false, 'exception was not raised');
+    } catch (error) {
+        ok(error instanceof NotMatchedByValue,
+            'invalid exception type ' + error.name);
+    }
+
+});
+
+test("Exceptions: NotMatchedByType", function () {
+    this.editor = StandAloneDTDEditor({});
+    var checker = CheckType(this.editor, { id: 'fake', type: 'str' });
+    checker.markup(this.editor, 'valid');
+    try {
+        checker.markup(this.editor, 1);
+        ok(false, 'exception was not raised');
+    } catch (error) {
+        ok(error instanceof NotMatchedByType,
+            'invalid exception type ' + error.name);
+    }
+    try {
+        checker.markup(this.editor, 1.1);
+        ok(false, 'exception was not raised');
+    } catch (error) {
+        ok(error instanceof NotMatchedByType,
+            'invalid exception type ' + error.name);
+    }
+    try {
+        checker.markup(this.editor, true);
+        ok(false, 'exception was not raised');
+    } catch (error) {
+        ok(error instanceof NotMatchedByType,
+            'invalid exception type ' + error.name);
+    }
+    try {
+        checker.markup(this.editor);
+        ok(false, 'exception was not raised');
+    } catch (error) {
+        ok(error instanceof NotMatchedByType,
+            'invalid exception type ' + error.name);
+    }
+});
+
+test("Exceptions: NotMatchedByMany", function () {
+    this.editor = StandAloneDTDEditor({});
+    var checker = CheckMany(this.editor, { id: 'fake', item: 'fake' });
+
+    try {
+        checker.markup(this.editor, {});
+        ok(false, 'exception was not raised');
+    } catch (error) {
+        ok(error instanceof NotMatchedByMany, 
+            'invalid exception type ' + error.name);
+    }
+
+    try {
+        checker.markup(this.editor, false);
+        ok(false, 'exception was not raised');
+    } catch (error) {
+        ok(error instanceof NotMatchedByMany,
+            'invalid exception type ' + error.name);
+    }
+
+    try {
+        checker.markup(this.editor, 0);
+        ok(false, 'exception was not raised');
+    } catch (error) {
+        ok(error instanceof NotMatchedByMany,
+            'invalid exception type ' + error.name);
+    }
+
+    try {
+        checker.markup(this.editor, 'value');
+        ok(false, 'exception was not raised');
+    } catch (error) {
+        ok(error instanceof NotMatchedByMany,
+            'invalid exception type ' + error.name);
+    }
+
+    try {
+        checker.markup(this.editor);
+        ok(false, 'exception was not raised');
+    } catch (error) {
+        ok(error instanceof NotMatchedByMany,
+            'invalid exception type ' + error.name);
+    }
+
+});
+
+
+test("Exceptions: InvalidRuleDeclaration", function () {
+    try {
+        this.editor = StandAloneDTDEditor(invalid_DTD_1);
+        ok(false, 'exception was not raised');
+    } catch (error) {
+        ok(error instanceof InvalidRuleDeclaration,
+            'invalid exception type ' + error.name);
+    }
+});
+
+// _________________________________________________________________________ //
+
 module("Simple tests", { setup: setup, teardown: teardown });
 
 test("Variants with nested collections #1", function () {

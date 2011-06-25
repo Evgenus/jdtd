@@ -1,3 +1,13 @@
+var invalid_DTD_1 = {
+    'FILE': {
+        'name': 'str',
+        'value': {
+            'age': 'int',
+            'gender': 'bool'
+        }
+    }
+}
+
 var simple_DTD_variant_1 = {
     'FILE': {
         'pack': 'VARIANT*'
