@@ -114,7 +114,7 @@ var CheckValue = Check.$extend({
                 ? description.label
                 : this.id);
         element.addClass(context.styles.check_value);
-        element.addClass(description.class);
+        element.addClass(description['class']);
         return element;
     },
 
@@ -270,7 +270,7 @@ var CheckType = Check.$extend({
     create: function (context, data, description) {
         var data_value = data ? data.value : undefined;
         var element = this.provider.create(context, data_value, description);
-        element.addClass(description.class);
+        element.addClass(description['class']);
         return element;
     },
 
@@ -340,7 +340,7 @@ var CheckMany = Check.$extend({
         element.context = context;
 
         container.addClass(context.styles.check_many);
-        container.addClass(description.class);
+        container.addClass(description['class']);
         return container
     },
 
@@ -390,7 +390,7 @@ var CheckRule = Check.$extend({
         var rule = context.get_rule_by_name(this.rule);
         var element = rule.create(context, data_rule);
         element.addClass(context.styles.check_rule);
-        element.addClass(description.class);
+        element.addClass(description['class']);
         return element;
     },
 
