@@ -6,7 +6,7 @@
 //
 
 // TODO: I need tests for this
-// TODO:    Tests for description (names vs ids)
+// TODO:    Tests for description (names vs. ids)
 // TODO:    Description of keys in items with dynamic and static keys
 // TODO:    Description of values in items with dynamic and static keys
 
@@ -54,7 +54,7 @@ NotMatchedByCollectRules.prototype = Error.prototype;
 
 
 function NotMatchedInCollect(value) {
-    this.message = 'Bad value type ' + values.constructor + '.';
+    this.message = 'Bad value type ' + value.constructor + '.';
     this.name = 'NotMatchedInCollect';
     this.value = value;
 }
